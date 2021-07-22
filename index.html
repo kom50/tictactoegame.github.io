@@ -1,0 +1,125 @@
+
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <meta name="viewport" content="width = device-width ,initial-scale = 1.0, user-scalable = no"\>
+  <title >Tic Tac Toe Game</title>
+  <style>
+   body{
+        padding:0px;
+        margin: 0px 5px 0px;
+        background-color: white;    
+   }
+    #main{
+             box-shadow: 0px 0px 10px gray;
+             height:100%;
+             width: 94%;
+             position: absolute;
+             display: inline-block;
+             left: 3%;
+             background-color: white; 
+      }  
+    .flex-container {
+       height: 99%;
+       width: 90%;
+       box-sizing: border-box;
+       /* background-color: blue;    */
+       justify-content: space-around;
+       justify-content: center;
+       position: relative;
+       left:5%;
+       top : 5%;
+      }
+    .flex-container > a {
+       background-color : white;
+       display: block;
+       width : 90%;
+       /* height: 98px; */
+       margin :10px 10px;
+       text-align : center;
+       font-size : 25px;
+       font-weight: bold;
+       /* line-height : 98px; */
+       color : blue;
+       position: relative;
+       top :100px;
+       border : 1px solid white;
+       border-radius: 20px 10px;
+       outline : none;
+     /* //  transition: color .4s ease; */
+       border:  1px solid blue;
+       padding: 5px;
+       text-decoration: none;
+    }
+  .flex-container > a:active {
+      background-color:blue;
+   }
+
+   .flex-container > a:last-child{
+        top :  100px;
+   }
+      h3{
+          width: 94%;
+          height: 45px;
+          line-height: 45px;
+          position: relative;
+          left: 3%;
+          top :5%;
+          text-align: center;
+          background-color: #f0f000;
+          color : white;
+          font-size: 20px;
+          box-shadow: 0px 0px 10px gray;
+          border-radius : 10px;
+          /* //animation: anim 2s infinite linear; */
+      }
+      
+      #marq{
+          /* height: 20px; */
+          position: relative;
+          top : -20%;
+      }
+      @keyframes anim{
+          from{background-color: aquamarine; color :#009999;}
+          to{background-color: #00e6e6; color : red;}
+      }
+      p{
+          margin-top: 8px;
+          color :red;
+          font-family:monospace;
+          font-size: 20px;
+          animation: color1 1s infinite linear;
+      }
+      @keyframes color1{
+          0%{color : blue;}
+          20%{color:red;}
+          
+          40%{color : whitesmoke;}
+          60%{color: green;}
+          
+          80%{color :yellow;}
+          100%{color: aqua;}
+      }
+     
+
+  </style>
+     
+ </head>
+ <body>
+   <div id="main">
+     <div id="header" ><h3 >Tic Tac Toe Game</h3></div>
+       <div id="box" class = "flex-container" >
+           <a href="playWithComputer.html"  >Play with Computer</a> </br>
+           <a href="playWithFriends.html"  >Play with Friends</a> 
+       </div >
+     <div id="marq">
+            <marquee behavior="alternate"> <p > Developed By : Om prakash</p></marquee>
+     </div>
+   </div>
+     
+     
+  <script>
+     
+  </script>
+  </body>
+</html>

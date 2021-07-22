@@ -1,0 +1,698 @@
+
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <meta name="viewport" content="width = device-width ,initial-scale = 1.0, user-scalable = no"\>
+  <title >Tic Tac Toe Game</title>
+  <!-- <script type="text/javascript" src="playWithFriendsScript.js"></script> -->
+  <!-- <script src="playWithFriendsScript.js"></script> -->
+  <link href='styles.css' rel='stylesheet'>
+ </head>
+ <body onload="getName()">
+   <div id="main">
+     <div id="header" ><h3 >Tic Tac Toe Game</h3></div>
+       <div id="dashboard">
+           <table >
+             <tr>
+               <td id="fst">1st player(X) : 0</td>
+               <td id="snd">Computer (O) : 0</td>
+             </tr>
+             <tr>
+                <td id="draw">Draw : 0</td>
+                <td id="total">Round No. : 1</td>
+             </tr>
+           </table>
+        </div>
+       <div id="box" class = "flex-container" >
+           <button id ="b1" onclick="fun(1)" ></button> 
+           <button id ="b2" onclick="fun(2)" ></button> 
+           <button id ="b3" onclick="fun(3)" ></button> 
+           <button id ="b4" onclick="fun(4)" ></button>
+           <button id ="b5" onclick="fun(5)" ></button>
+           <button id ="b6" onclick="fun(6)" ></button>
+           <button id ="b7" onclick="fun(7)" ></button>
+           <button id ="b8" onclick="fun(8)" ></button>
+           <button id ="b9" onclick="fun(9)" ></button>
+       </div >
+     <div id="buttongroup">
+       <input type="button" id="btn1" value="Quit" onclick="quit()" disabled/>
+       <input type="button" id="btn" value="Next" onclick="nextN()" disabled/>
+     </div>
+       <div id="win"> </div>
+       <div id="marq">
+            <marquee behavior="alternate"> <p > Developed By : Om prakash</p></marquee>
+     </div>
+    </div>
+     
+     
+  <script>
+  //     /* This project is not finish */
+        var name,
+            symbol;
+        function getName(){
+             name = prompt("Enter your name.", "Om").substr(0, 10).trim();
+             symbol = prompt("Enter your symbol.", "X").trim();
+             document.getElementById('fst').innerHTML = `${name}(${symbol}) : 0`;
+        }
+        var box = document.querySelectorAll("#box > button");
+        var turn = 1;
+        var compNo = [],
+            userNo = [];
+        var userSize = -1,
+            compSize = -1;
+        var boxFull = 0 ,
+           boxFilled = [];
+
+        var fstplayer = 0,
+            computer = 0,
+            roundNo = 1,
+            drawm = 0;
+        var fields = [];
+        var isWin = false;
+        function fun(index){
+            box[index - 1].innerHTML = symbol;
+            userSize += 1;
+            userNo[userSize] = index - 1;
+            let a =  Math.floor(Math.random() * 9);
+
+            box[index - 1].disabled = true;
+            box[index - 1].style.color = 'red';
+            document.getElementById("snd").style.color = "green";
+            document.getElementById("fst").style.color = "red";
+           
+            
+            boxFull += 1;
+            winnerfun();
+            console.log("win  : "+isWin)
+            if(boxFull != 9 && isWin != true){
+               setTimeout(computerTurn, 310);
+            }
+            
+            //boxFilled[boxFull] = index - 1;
+            console.log("box full "+boxFull)
+            console.log(userNo+ "  comp  "+compNo);
+        }
+
+        //for winner
+        function data(){
+            for(let i = 0; i < box.length; i++){
+               fields[i] = box[i].innerHTML;
+            }
+        }
+        var win;
+        function winnerfun(){
+            //winner
+           data();
+           if(fields[0] == fields[2] && fields[1] == fields[2])
+             {
+               //system("color 0D");
+                if(fields[0] != "" && fields[1] != "" && fields[2] != "")
+                {
+                  win = fields[1];
+                  WinBox(1);   
+                }  
+             }
+            if(fields[3] == fields[4] && fields[4] == fields[5])
+                {
+                if(fields[3] != "" && fields[4] != "" && fields[5] != "")
+                {
+                    win = fields[4];
+                    WinBox(2);   
+                } 
+             }
+            if(fields[6] == fields[7] && fields[7] == fields[8])
+              {
+                  if(fields[6] != "" && fields[7] != "" && fields[8] != "")
+                    { 
+                      win = fields[7];
+                      WinBox(3);   
+                    } 
+                }
+            //columns
+            if(fields[0] == fields[3] && fields[3] == fields[6])
+              {
+                  if(fields[0] != "" && fields[3] != "" && fields[6] != "")
+                  {
+                      win = fields[3];
+                      WinBox(4);   
+                }    
+              }
+            if(fields[1] == fields[4] && fields[4] == fields[7])
+              {
+                  if(fields[1] != "" && fields[4] != "" && fields[7] != "")
+                    { 
+                        win = fields[4];
+                      WinBox(5);   
+                } 
+            }
+            if(fields[2] == fields[5] && fields[5] == fields[8])
+              {
+                  if(fields[2] != "" && fields[5] != "" && fields[8] != "")
+                  {
+                      win = fields[5];
+                    WinBox(6);   
+                } 
+            }
+            //Diagonal 1
+            if(fields[0] == fields[4] && fields[4] == fields[8])
+              {
+                  if(fields[0] != "" && fields[4] != "" && fields[8] != "")
+                  {
+                      win = fields[4];
+                    WinBox(7);   
+                } 
+            }
+            //Diagonal 2
+            if(fields[2] == fields[4] && fields[4] == fields[6])
+              {
+                if(fields[2] != "" && fields[4] != "" && fields[6] != "")
+                  { 
+                      win = fields[4];
+                      WinBox(8);   
+                } 
+            }
+                  
+        if(win == symbol)
+            {
+              fstplayer++;
+              document.getElementById("fst").innerHTML = `${name}(${symbol}) : ${fstplayer}` ;//"1st player(X) : "+fstplayer; 
+              document.getElementById("win").innerHTML= name+" is winner!";
+              Disable(true);
+              buttonDisable(false);
+              console.log("X is winner...");  
+              win = "";
+              isWin = true;
+              return;
+          }
+          else if(win == "O")
+          {
+              console.log("O is winner...");
+              computer++;
+              //init();
+              document.getElementById("snd").innerHTML ="Computer(O) : "+computer;
+              document.getElementById("win").innerHTML=" Computer is winner!"; 
+              Disable(true);
+              buttonDisable(false);
+              win = "";
+              isWin = true;
+              return;
+          } 
+              
+          if(boxFull == 9)
+            {
+              console.log("Match draw...");
+              drawm ++;
+              document.getElementById("win").innerHTML="Match draw";          
+              buttonDisable(false);
+            //  document.getElementById("btn").disabled = true;
+              //document.getElementById("btn1").disabled = true;
+              document.getElementById("draw").innerHTML="Draw : "+drawm;   
+          }  
+
+          console.log("boxFull "+boxFull);
+        }
+       function quit(){
+          document.getElementById("btn").disabled = true;
+          document.getElementById("btn1").disabled = true;
+          //buttonDisable(ture);
+          if(fstplayer == computer)  
+             alert("All are equals...");
+          else if(fstplayer > computer)
+              alert(`${name} is winner by ${fstplayer - computer} rounds`);
+          else
+              alert(`Computer is winner by ${computer - fstplayer} rounds`);
+           
+          init();
+          roundNo = 1;
+          fstplayer =  computer =  drawm = 0;
+         // Disable(false);
+          board();
+       }
+      function board()
+       {
+           document.getElementById("fst").innerHTML = `${name}(${symbol}) : 0` ; 
+           document.getElementById("snd").innerHTML ="Computer(O) : 0";
+           document.getElementById("win").innerHTML=""; 
+           document.getElementById("total").innerHTML="Round No. : 1";  
+           document.getElementById("draw").innerHTML="Draw : 0 ";  
+       }
+      
+       function init()
+       {
+          //roundNo = 1;
+       //   fstplayer = 0;
+          isWin = false;
+          boxFull = 0;
+          compSize = userSize = -1;
+          compNo = [];
+          userNo = [];
+          //computer = 0;
+         // drawm = 0;
+           
+           for(let i = 0; i < box.length; i++){
+              box[i].textContent = "";
+              box[i].disabled = false;
+              box[i].style.backgroundColor = "white"; 
+           }
+       }
+
+        function buttonDisable(bool){
+            document.getElementById("btn").disabled = bool;
+            document.getElementById("btn1").disabled = bool;
+        }
+        function Disable(b){
+            for(let i = 0; i < box.length; i++)
+               box[i].disabled = b;           
+        }
+        function WinBox(a)
+       {
+           if( a == 1){
+              box[0].style.backgroundColor = "#80ffaa";
+              box[1].style.backgroundColor = "#80ffaa"; 
+              box[2].style.backgroundColor = "#80ffaa";
+				   }
+           if( a == 2){
+             box[3].style.backgroundColor = "#80ffaa";  
+             box[4].style.backgroundColor = "#80ffaa"; 
+             box[5].style.backgroundColor = "#80ffaa";
+           }
+           if( a == 3){
+             box[6].style.backgroundColor = "#80ffaa"; 
+             box[7].style.backgroundColor = "#80ffaa"; 
+             box[8].style.backgroundColor = "#80ffaa";
+           }
+           if( a == 4){
+             box[0].style.backgroundColor = "#80ffaa"; 
+             box[3].style.backgroundColor = "#80ffaa"; 
+             box[6].style.backgroundColor = "#80ffaa";
+           }
+           if( a == 5){
+             box[1].style.backgroundColor = "#80ffaa"; 
+             box[4].style.backgroundColor = "#80ffaa"; 
+             box[7].style.backgroundColor = "#80ffaa";
+           }
+           if( a == 6){
+             box[2].style.backgroundColor = "#80ffaa"; 
+             box[5].style.backgroundColor = "#80ffaa"; 
+             box[8].style.backgroundColor = "#80ffaa";
+           }
+           if( a == 7){
+             box[0].style.backgroundColor = "#80ffaa"; 
+             box[4].style.backgroundColor = "#80ffaa"; 
+             box[8].style.backgroundColor = "#80ffaa";
+           }
+           if( a == 8){
+             box[2].style.backgroundColor = "#80ffaa"; 
+             box[4].style.backgroundColor = "#80ffaa"; 
+             box[6].style.backgroundColor = "#80ffaa";
+         }   
+       }
+
+        function computerTurn(){
+           // console.log("Computer turn is now :)");
+            let index;
+            var flag;
+            do{
+              flag = false;
+              index = Math.floor(Math.random() * 9);   
+               for(let j = 0; j <= compSize || j <= userSize ; j++){
+                 if(userNo[j] == index || compNo[j] == index){
+                   flag = true;   
+                   console.log("Found..."); 
+                }
+              }
+            }while(flag == true);
+            //boxFilled[boxFull] = index;
+            boxFull += 1;
+            
+            let compWinIndex,
+                userWinIndex;
+            compWinIndex = Rands();
+            userWinIndex = ComputerWinPosition();
+
+            if(compWinIndex != -1){
+              index = compWinIndex - 1;
+            }
+            else if(compWinIndex == -1){
+              if(userWinIndex != -1){
+                index = userWinIndex - 1 ;
+              }
+            }
+            console.log("compWinIndex  "+compWinIndex+"   userWinIndex : "+userWinIndex)
+            box[index].innerHTML = 'O';
+            box[index].disabled = true;
+            box[index].style.color = 'blue';
+
+            document.getElementById("snd").style.color = "red";
+            document.getElementById("fst").style.color = "green";
+            
+            compSize += 1;
+            compNo[compSize] = index;
+            console.log("Computer turn is now :) "+     index);
+            //winner function
+            winnerfun();
+        }
+
+        function nextN(){
+            turn++;
+            roundNo++;
+            document.getElementById("win").innerHTML="";
+            document.getElementById("total").innerHTML="Rounds No : "+roundNo;
+            // for(let i = 0; i < box.length; i++){
+            //     box[i].innerHTML = "";
+            //     box[i].disabled = false;
+            //     box[i].style.backgroundColor = 'white';
+            // }
+            buttonDisable(true);
+            init();
+            console.log("turn  "+turn);
+            if(turn % 2 == 0)
+               computerTurn();
+        }
+
+      function Rands()
+        {
+          console.log("rand function :)")
+            var pos = 0,count = 0;
+            var  blank = false, r, i;
+            //1 rows
+            for(i=0;i<3;i++)
+            {
+                if(box[i].innerHTML == "O")
+                {
+                    count++;
+                }
+                else if(box[i].innerHTML == "")
+                  {
+                      pos = i + 1;
+                      blank = true;
+                  }
+            }
+            if(count == 2&&blank){
+                console.log("r rows 1 = "+pos);
+                return pos;
+            }
+            //2 rows
+            blank = false;
+            for(count=0,pos=0,i=3;i<6;i++)
+            {
+                if(box[i].innerHTML == "O")
+                {
+                    count++;
+                }
+                else if(box[i].innerHTML == "")
+                  {
+                      pos = i + 1;
+                      blank = true;
+                  }
+            }
+            if(count == 2&&blank==true){
+                console.log("r rows 2 = "+pos);
+                return pos;
+            }
+            //3 rows
+            blank = false;
+            for(count=0,pos=0,i=6;i<9;i++)
+            {
+                if(box[i].innerHTML == "O")
+                {
+                    count++;
+                }
+                else if(box[i].innerHTML == "")
+                  {
+                      pos = i + 1;
+                      blank = true;
+                  }
+            }
+            if(count == 2&&blank){
+                  console.log("r rows 3 = "+pos);
+                return pos;
+            }
+            // next
+            //1 column
+            blank = false;
+            r = 1;
+            for(count=0,pos=0,i=0;i<7;i+=3,r+=3)
+            {
+             if(box[i].innerHTML == "O") 
+                {
+                    count++;
+                }
+                else if(box[i].innerHTML == "")
+                  {
+                      pos =  r;
+                      blank = true;
+                  }
+            }
+            if(count == 2&&blank){
+              console.log("r column 1 = "+pos);
+                return pos;
+            }
+            //2 column
+            blank = false;
+            r = 2;
+            for(count=0,pos=0,i = 1; i < 8;i += 3,r+=3)
+            {
+                if(box[i].innerHTML == "O")
+                {
+                    count++;
+                }
+                else if(box[i].innerHTML == "")
+                  {
+                      pos = r;
+                      blank = true;
+                  }
+            }
+            if(count == 2&&blank){
+              console.log("r column 2 = "+pos);      
+              return pos;
+            }
+            //3 column
+            blank = false;
+            r = 3;
+            for(count=0,pos=0,i = 2; i < 9;i += 3,r+=3)
+            {
+                if(box[i].innerHTML == "O")
+                {
+                    count++;
+                }
+                else if(box[i].innerHTML == "")
+                  {
+                      pos = r;
+                      blank = true;
+                  }
+            }
+            if(count == 2&&blank){
+              console.log("r column 3 = "+pos);
+                return pos;
+            }
+            //diagonal
+            blank = false;
+            r = 1;
+            for(count=0,pos=0,i=0;i<9;i+=4,r+=4)
+            {
+                if(box[i].innerHTML == "O")
+                {
+                    count++;
+                }
+                else if(box[i].innerHTML == "")
+                  {
+                      pos = r;
+                      blank = true;
+
+                  }
+            }
+            if(count == 2&&blank){
+              console.log("r dia 1= "+pos);
+                return pos;
+            }
+
+            //last
+            blank = false;
+            var j;
+            r = 3;
+          for(count=0,pos = 0,j = 2;j < 7;j += 2,r += 2)
+            {
+              if(box[j].innerHTML == "O")
+                  {
+                    count++;
+                  }
+              else if(box[j].innerHTML == "")
+                  {
+                      pos = r;
+                      blank = true;
+                }
+          }
+          if(count == 2&&blank){
+                console.log("r dia 2 = "+pos);
+                return pos;
+          }
+            return -1;
+      }
+
+
+      function ComputerWinPosition()
+      {    
+          var pos = 0,count = 0;
+          var blank = false;
+          var r, i;
+          //1 rows
+          for(i=0;i<3;i++)
+          {
+              if(box[i].innerHTML == symbol)
+              {
+                  count++;
+              }
+              else if(box[i].innerHTML == "")
+                {
+                    pos = i + 1;
+                    blank = true;
+                }
+          }
+          if(count == 2&&blank){
+      console.log("c rows 1 = "+pos);
+              return pos ;
+          }
+          //2 rows
+          blank = false;
+          for(count=0,pos=0,i=3;i<6;i++)
+          {
+              if(box[i].innerHTML == symbol)
+              {
+                  count++;
+              }
+              else if(box[i].innerHTML == "")
+                {
+                    pos = i + 1;
+                    blank = true;
+                }
+          }
+          if(count == 2&&blank==true){
+              console.log("c rows 2 = "+pos);
+              return pos;
+          }
+          //3 rows
+          blank = false;
+          for(count=0,pos=0,i=6;i<9;i++)
+          {
+              if(box[i].innerHTML  == symbol)
+              {
+                  count++;
+              }
+              else if(box[i].innerHTML == "")
+                {
+                    pos = i + 1;
+                    blank = true;
+                }
+          }
+          if(count == 2&&blank){
+        console.log("c rows 3 = "+pos);
+              return pos;
+          }
+          // next
+          //1 column
+          blank = false;
+          r = 1;
+          for(count=0,pos=0,i=0;i<7;i+=3,r+=3)
+          {
+              if(box[i].innerHTML  == symbol) 
+              {
+                  count++;
+              }
+              else if(box[i].innerHTML == "")
+                {
+                    pos =  r;
+                    blank = true;
+                }
+          }
+          if(count == 2&&blank){
+        console.log("c column 1 = "+pos);
+              return pos;
+          }
+          //2 column
+          blank = false;
+          r = 2;
+          for(count=0,pos=0,i = 1; i < 8;i += 3,r+=3)
+          {
+              if(box[i].innerHTML == symbol)
+              {
+                  count++;
+              }
+              else if(box[i].innerHTML == "")
+                {
+                    pos = r;
+                    blank = true;
+                }
+          }
+          if(count == 2&&blank){
+        console.log("c column 2 = "+pos);
+            return pos;
+          }
+          //3 column
+          blank = false;
+          r = 3;
+          for(count=0,pos=0,i = 2; i < 9;i += 3,r+=3)
+          {
+              if(box[i].innerHTML  == symbol)
+              {
+                  count++;
+              }
+              else if(box[i].innerHTML == "")
+                {
+                    pos = r;
+                    blank = true;
+                }
+          }
+          if(count == 2 && blank){
+        console.log("c column 3 = "+pos);
+              return pos;
+          }
+          //diagonal
+          blank = false;
+          r = 1;
+          for(count=0,pos=0,i=0;i<9;i+=4,r+=4)
+          {
+              if(box[i].innerHTML == symbol)
+              {
+                  count++;
+              }
+              else if(box[i].innerHTML == "")
+                {
+                    pos = r;
+                    blank = true;
+
+                }
+          }
+          if(count == 2&&blank){
+             console.log("c dia 1 = "+pos);
+              return pos;
+          }
+
+          //last
+          blank = false;
+          var j;
+          r = 3;
+        for(count=0,pos = 0,j = 2;j < 7;j += 2,r += 2)
+          {
+          if(box[j].innerHTML == symbol)
+                {
+                  count++;
+                }
+            else if(box[j].innerHTML == "")
+                {
+                    pos = r;
+                    blank = true;
+              }
+        }
+        if(count == 2&&blank){
+              console.log("c dia 2 = "+pos);
+              return pos;
+        }
+       return -1;
+      } 
+
+    
+  </script>
+    
+    </body>
+</html>

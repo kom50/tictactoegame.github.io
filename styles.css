@@ -1,0 +1,160 @@
+   body{
+        padding:0px;
+        margin: 0px 5px 0px;
+        background-color: white;    
+   }
+    #main{
+             box-shadow: 0px 0px 3px gray;
+             height:110%;
+             width: 96%;
+             position: absolute; 
+             display: block;
+             left:2%;
+             background-color: white; 
+      }  
+    .flex-container {
+       height: 300px;
+       width: 302px;
+       display : flex;
+       flex-wrap : wrap;
+       box-sizing: border-box;
+       background-color: blue;   
+       justify-content: center;
+	   position : relative;
+	   margin : auto;
+	   top : 15px;
+       
+      }
+    .flex-container > button {
+       background-color : white;
+       width : 98px;
+       height: 98px;
+       margin :1px 1px;
+       text-align : center;
+       font-size : 60px;
+       font-weight: bold;
+       line-height : 98px;
+       color :aquamarine;
+       top :1px;
+       border : 1px solid white;
+       outline : none;
+       transition: color .4s ease;
+    }
+  .flex-container > button:active {
+      background-color:blue;
+   }
+   #dashboard{
+          color: #000000; 
+          width: 93%;
+          height: 70px;
+          padding: 5px;
+          /* //background-color: palegreen; */
+          font-weight: bold;
+          color : red;
+          display: inline-block;
+          position: relative;
+          left : 3%;
+      }
+      table {
+          height: 100%;
+          border : 1px solid blue;  
+          width: 100%;
+          font-size: 16px;
+          border-spacing: 5%;
+      }
+      tr td{
+           border : 1px solid blue;
+           padding: 3px;
+      }
+      
+
+     
+   #buttongroup{
+       width: 94%;
+       height: 60px;
+       position: relative;
+	   margin : auto;
+       top:10%;
+	   display : flex;
+	   justify-content : space-around;
+   }
+      #btn, #btn1{
+          top: 16%;
+          width: 120px;
+          height: 40px;
+          border: 1px solid blue;
+          background-color: white;
+          color:blue;
+          font-size : 20px;
+          font-weight: bold;
+          border-radius: 40px / 39px;
+          box-shadow : 0 0 10px gray;
+          transition: background-color .1s ease;
+      }
+      #btn:active, #btn1:active{
+          background-color: blue;
+          color: white;
+          box-shadow : 0 0 0 gray;
+      }
+      h3{
+          width: 94%;
+          height: 45px;
+          line-height: 45px;
+          position: relative;
+          left: 3%;
+          top :5%;
+          text-align: center;
+          background-color: red;
+          color : white;
+          font-size: 20px;
+          box-shadow: 0px 0px 10px gray;
+          border-radius : 10px;
+          /* //animation: anim 2s infinite linear; */
+      }
+      #win{
+          width: 94%;
+          position: relative;
+          left : 3%;
+          top :10%;
+          height: 40px;
+          background-color: red;
+          box-shadow: 0px 0px 10px gray;
+          text-align: center;
+          margin-bottom: 2%;
+          border-radius : 10px ;
+          color : white;
+          line-height: 40px;
+          font-size : 22px;
+      }
+      
+      #marq{
+          height: 20px;
+          position: relative;
+          top :10%;
+      }
+      @keyframes anim{
+          from{background-color: aquamarine; color :#009999;}
+          to{background-color: #00e6e6; color : red;}
+      }
+      p{
+          margin-top: 8px;
+          color :red;
+          font-family:monospace;
+          font-size: 20px;
+          animation: color1 1s infinite linear;
+      }
+      @keyframes color1{
+          0%{color : blue;}
+          20%{color:red;}
+          
+          40%{color : whitesmoke;}
+          60%{color: green;}
+          
+          80%{color :yellow;}
+          100%{color: aqua;}
+      }
+     
+      #fst{
+          color : blue;
+          font-size: 18px;
+      }
